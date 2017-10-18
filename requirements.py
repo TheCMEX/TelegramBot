@@ -1,0 +1,9 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+idna==2.6
+logger==1.4
+pyTelegramBotAPI==3.2.1
+requests==2.7.0
+six==1.11.0
+telebot==0.0.3
+urllib3==1.22

@@ -7,10 +7,12 @@ Telegram-бот, имитирующий консультанта по образ
 '''
 
 
-import telebot                  # импортируем необходимые библиотеки. Бот написан в библиотеке pyTelegramBotAPI
+import telebot
+import constants                        # импортируем необходимые библиотеки. Бот написан в библиотеке pyTelegramBotAPI
 from telebot import types
+from telebot import logger
 
-bot = telebot.TeleBot('344982115:AAHDoI-zYj61OXdypaZuHeLXrisYWIsewpk')   # присваиваем токен, который в целях защиты находится в отдельном файле constants.py
+bot = telebot.TeleBot(constants.token)   # присваиваем токен, который в целях защиты находится в отдельном файле constants.py
 
 @bot.message_handler(commands=['start'])
 def handle_start(message):
