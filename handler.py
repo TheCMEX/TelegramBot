@@ -10,9 +10,9 @@ Telegram-бот, имитирующий консультанта по образ
 import telebot
 import constants                        # импортируем необходимые библиотеки. Бот написан в библиотеке pyTelegramBotAPI
 from telebot import types
-from telebot import logger
 
-bot = telebot.TeleBot(constants.token)   # присваиваем токен, который в целях защиты находится в отдельном файле constants.py
+bot = telebot.TeleBot(constants.token)  # присваиваем токен, который в целях защиты находится в отдельном файле constants.py
+
 
 @bot.message_handler(commands=['start'])
 def handle_start(message):
@@ -36,9 +36,9 @@ def handle_consultation(message):
 
 def hello(message):
     user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    user_markup.row('Информация о GoTo', 'Образовательные программы')
-    msg = bot.send_message(message.chat.id, 'Очень приятно познакомиться, {username}. Хочешь ли ты сначала узнать, что такое школа '
-                                           '<b>GoTo</b>, или сразу проконсультировать тебя по поводу образовательных программ? '
+    user_markup.row('Информация о GoTo')
+    msg = bot.send_message(message.chat.id, 'Очень приятно познакомиться, {username}. Предлагаю тебе сначала узнать, что такое школа '
+                                           '<b>GoTo</b>'
                                             'Для ответа на этот вопрос выбери один из вариантов ответа ниже.'.format(username=message.text), reply_markup=user_markup, parse_mode='HTML')
     bot.register_next_step_handler(msg, name)
 
@@ -71,9 +71,7 @@ def name(message):
                                'заинтересует, тебе всего лишь нужно выбрать нужную ниже.',
                                reply_markup=user_markup, parse_mode='HTML')
         bot.register_next_step_handler(msg, name1)
-    else:
-        msg = bot.send_message(message.chat.id, 'Образовательные программы')
-        bot.register_next_step_handler(msg, programms)
+
 def programms(message):
     if message.text == 'Образовательные программы' or message.text == '/infprogramms':
         user_markup = telebot.types.ReplyKeyboardMarkup(True, False)
@@ -439,64 +437,3 @@ bot.polling(none_stop = True, interval=0)   # Потом можно будет �
 
 
 
-
-
-"""import telebot
-import constants
-
-bot = telebot.TeleBot(constants.token)
-
-# upd = bot.get_updates()
-# print(upd)
-#last_upd = upd[-1]
-#message_from_user = last_upd.message
-#print(message_from_user)"""
-
-"""print(bot.get_me())
-
-def log(message, answer):
-    print("\n ------")
-    from datetime import datetime
-    print(datetime.now())
-    print('Сообщение от {0} {1}. (id = {2}) \n Текст - {3}'.format(message.from_user.first_name,
-                                                                   message.from_user.last_name,
-                                                                   str(message.from_user.id),
-                                                                   message.text))
-    print(answer)
-@bot.message_handler(commands=["help"])
-def handle_text(message):
-    bot.send_message(message.chat.id, 'Надеюсь, сейчас всё работает. Чайку принести?')
-
-
-@bot.message_handler(commands=['stop'])
-def handle_start(message):
-    hide_markup = telebot.types.ReplyKeyboardRemove()
-    bot.send_message(message.from_user.id, '...', reply_markup=hide_markup)
-
-@bot.message_handler(content_types=['text'])
-def handle_text(message):
-    if message.text == 'Фото':
-        bot.send_chat_action(message.from_user.id, 'upload_photo')
-        bot.send_photo(message.from_user.id, constants.template_photo_id)
-
-
-bot.polling(none_stop = True, interval=0)"""
-
-
-'''Привет! Для работы с этим ботом мы предусмотрели два варианта консультации:
-
-/consultation - Полная подробная консультация по всем образовательным программам GoTo (Рекомендуется)
-
-Второй заключается в ответах на вопросы, заданные непосредственно пользователем при выборе одной из команд ниже:
-
-/infgoto - Базовая информация о GoTo
-/infprogramms - Информация обо всех образовательных программах
-
-Также можно выборочно сразу перейти к интересующей вас программе, если вы уже знаете о нашей деятельности:
-
-/gotocamp - Школа GoToCamp
-/gotocourse - Курсы GoToCourse
-/gotohack - Хакатоны GoToHack
-/gotocampgrant - Получение гранта на полное или частичное покрытие стоимости обучения в GoToCamp
-
-Удачного пользования, не забудьте оставить отзыв через команду /service ^-^'''
